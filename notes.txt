@@ -196,3 +196,58 @@ Algorithm:
 - Use memory to make prediction
 
 new memory = old memory + new word
+
+Same weights (Wx, Wh) used at every step
+This is called Weight Sharing
+
+Summary of RNN:
+1. Handle sequential data
+2. Maintains memory
+3. Works for text, speech, video, time series
+
+Limitations of RNN:
+1. Cannot handle long term dependencies
+2. Slow - sequential processing
+
+Solution is LSTM (Long short term memory)...
+
+Types of RNN:
+1. One to One - simple architecture like standard ANN: 
+    Example: Image classification - Input one image and get one label like "cat" or "dog"
+2. One to Many - Network takes a single input and generate sequence of outputs
+    Example: Image captioning - Input image and produces a sequence of words.
+3. Many to One - Network takes multiple input and process them to a single output.
+    Example: sentiment analysis, spam classification
+4. Many to Many - Network takes multiple input and generate a sequence of multiple words
+    Example: Translator
+
+
+Key architecture of RNN:
+- Standard RNN often struggle with the "vanishing gradient problem", where they forget information from the distant past.
+That's why we need advanced variants of RNN that uses Gating mechanism:
+- LSTM - Long Short Term Memory
+- GRU - Gated Recurrent Unit
+- BiRNN - Bi-Directional RNN
+- Deep RNN
+
+
+BPTT - Backpropagation Through Time
+- To understand BPTT, think of RNN as a standard deep network that has been unrolled in time. Because the same parameters (W) are used at every step, the gradient must account for entire history of sequences...
+
+1. Forward Pass / Feedforward
+- at every time step, network will perform two main calculations:
+i. Hidden state: Updated using the current input and previous hidden state
+ii. Output: Generated from the current hidden state
+
+2. Total Loss
+The total loss for a sequence of length is the sum of the lossed at each time step
+
+3. Gradient Challenge:
+To update weights, we need partial derivative, using the chain rule we sum the contribution of W at every step.
+For a specific step t, the gradient depends on current state ht, which in turn depends on ht-1, which depends on ht-2, and so on. This creates a chain of multiplication
+
+4. Vanishing Gradient Problem
+If the weights are small, multiplying them repeatedly causes the gradient to shrink exponentially toward zero (Vanishing Gradient). The model stops learning long-term dependencies
+
+
+
